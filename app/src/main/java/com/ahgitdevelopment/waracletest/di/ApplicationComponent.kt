@@ -1,7 +1,7 @@
 package com.ahgitdevelopment.waracletest.di
 
 import com.ahgitdevelopment.waracletest.base.BaseApplication
-import com.ahgitdevelopment.waracletest.ui.main.MainFragment
+import com.ahgitdevelopment.waracletest.base.BaseFragment
 import dagger.Component
 
 @ApplicationScope
@@ -16,7 +16,6 @@ interface ApplicationComponent {
 
     fun inject(application: BaseApplication)
 
-    fun inject(mainFragment: MainFragment)
-
+    fun inject(baseFragment: BaseFragment)
 
 }
