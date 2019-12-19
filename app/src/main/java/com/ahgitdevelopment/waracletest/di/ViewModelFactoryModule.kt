@@ -1,7 +1,7 @@
 package com.ahgitdevelopment.waracletest.di
 
 import com.ahgitdevelopment.waracletest.factory.ViewModelFactory
-import com.ahgitdevelopment.waracletest.ui.main.MainViewModel
+import com.ahgitdevelopment.waracletest.ui.main.MainFragmentViewModel
 import dagger.Module
 import dagger.Provides
 import javax.inject.Provider
@@ -10,14 +10,13 @@ import javax.inject.Provider
 class ViewModelFactoryModule {
     @Provides
     fun viewModelFactory(
-        mainViewModelProvider: Provider<MainViewModel>
+        mainFragmentViewModelProvider: Provider<MainFragmentViewModel>
     ): ViewModelFactory {
-        return ViewModelFactory(mainViewModelProvider)
+        return ViewModelFactory(mainFragmentViewModelProvider)
     }
 
     @Provides
-    fun getMainViewModel(): MainViewModel {
-        return MainViewModel()
+    fun getMainViewModel(): MainFragmentViewModel {
+        return MainFragmentViewModel()
     }
-
 }

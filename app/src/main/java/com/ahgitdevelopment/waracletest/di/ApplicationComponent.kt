@@ -8,13 +8,15 @@ import dagger.Component
 @Component(
     modules = [
         ApplicationModule::class,
-        ViewModelFactoryModule::class
+        ViewModelFactoryModule::class,
+        NetworkModule::class
     ]
 )
 interface ApplicationComponent {
 
     fun inject(application: BaseApplication)
 
-    fun inject(fragment: MainFragment)
+    fun inject(mainFragment: MainFragment)
+
 
 }

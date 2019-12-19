@@ -1,8 +1,8 @@
-package com.ahgitdevelopment.waracletest
+package com.ahgitdevelopment.waracletest.ui.main
 
 import android.os.Bundle
+import com.ahgitdevelopment.waracletest.R
 import com.ahgitdevelopment.waracletest.base.BaseActivity
-import com.ahgitdevelopment.waracletest.ui.main.MainFragment
 
 class MainActivity : BaseActivity() {
 
@@ -16,5 +16,4 @@ class MainActivity : BaseActivity() {
                 .commitNow()
         }
     }
-
 }

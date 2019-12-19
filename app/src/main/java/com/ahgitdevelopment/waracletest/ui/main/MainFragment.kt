@@ -8,11 +8,15 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import com.ahgitdevelopment.waracletest.R
 import com.ahgitdevelopment.waracletest.base.BaseFragment
+import com.ahgitdevelopment.waracletest.network.CakeService
+import javax.inject.Inject
 
 class MainFragment : BaseFragment() {
 
+    @Inject
+    lateinit var serviceApi: CakeService
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var fragmentViewModel: MainFragmentViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.main_fragment, container, false)
@@ -26,8 +30,9 @@ class MainFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+        fragmentViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainFragmentViewModel::class.java)
         // TODO: Use the ViewModel
+        fragmentViewModel.getCakeList(serviceApi)
     }
 
     companion object {
