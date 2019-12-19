@@ -1,12 +1,13 @@
 package com.ahgitdevelopment.waracletest
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import com.ahgitdevelopment.waracletest.base.BaseActivity
 import com.ahgitdevelopment.waracletest.ui.main.MainFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         if (savedInstanceState == null) {
