@@ -18,7 +18,6 @@ import com.ahgitdevelopment.waracletest.ui.dialog.CakeDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.main_fragment.*
 
-
 class MainFragment : BaseFragment(), CakeViewHolder.OnItemClickListener {
 
     private lateinit var fragmentViewModel: MainFragmentViewModel
@@ -49,7 +48,7 @@ class MainFragment : BaseFragment(), CakeViewHolder.OnItemClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        setupList()
+        fetchCakeList()
 
         fragmentViewModel.cakeList.observe(this, Observer {
             recyclerViewAdapter = CakeRecyclerViewAdapter(it, this)
@@ -71,7 +70,7 @@ class MainFragment : BaseFragment(), CakeViewHolder.OnItemClickListener {
         })
     }
 
-    fun setupList() {
+    fun fetchCakeList() {
         snackbar?.let { it.dismiss() }
         fragmentViewModel.getCakeList(serviceApi)
     }

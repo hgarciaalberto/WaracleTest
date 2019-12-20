@@ -34,7 +34,7 @@ class MainActivity : BaseActivity() {
         when (item.itemId) {
             R.id.refresh -> {
                 currentFragment = supportFragmentManager.findFragmentByTag(TAG_MAIN_FRAGMENT)
-                (currentFragment as MainFragment).setupList()
+                (currentFragment as MainFragment).fetchCakeList()
             }
         }
 

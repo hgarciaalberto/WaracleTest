@@ -24,3 +24,21 @@ data class Cake(val title: String, val desc: String, val image: String) {
         }
     }
 }
+
+
+// TODO: That is not the best way to do that but I wanted to use extension function as part of the test
+@Suppress("UNCHECKED_CAST")
+fun <T> ArrayList<T>.processList() {
+
+    // Remove duplicate item in list
+    val aux = distinctBy { cakeScheme -> (cakeScheme as CakeScheme).title }
+
+    this.run {
+        // Update list
+        clear()
+        addAll(aux)
+
+        //Sort list
+        sortBy { cakeScheme -> (cakeScheme as CakeScheme).title }
+    }
+}
