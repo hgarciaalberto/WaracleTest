@@ -15,6 +15,7 @@ import com.ahgitdevelopment.waracletest.common.TAG_CAKE_DIALOG_FRAGMENT
 import com.ahgitdevelopment.waracletest.data.Cake
 import com.ahgitdevelopment.waracletest.databinding.MainFragmentBinding
 import com.ahgitdevelopment.waracletest.ui.dialog.CakeDialogFragment
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.main_fragment.*
 
 
@@ -23,6 +24,8 @@ class MainFragment : BaseFragment(), CakeViewHolder.OnItemClickListener {
     private lateinit var fragmentViewModel: MainFragmentViewModel
 
     private var recyclerViewAdapter: CakeRecyclerViewAdapter? = null
+
+    private var snackbar: Snackbar? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -45,11 +48,9 @@ class MainFragment : BaseFragment(), CakeViewHolder.OnItemClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setupList()
-    }
 
-    fun setupList() {
-        fragmentViewModel.getCakeList(serviceApi)
+        setupList()
+
         fragmentViewModel.cakeList.observe(this, Observer {
             recyclerViewAdapter = CakeRecyclerViewAdapter(it, this)
 
@@ -59,13 +60,26 @@ class MainFragment : BaseFragment(), CakeViewHolder.OnItemClickListener {
                 adapter = recyclerViewAdapter
             }
         })
+
+        fragmentViewModel.errorMessage.observe(this, Observer { errorMessage ->
+            activity?.findViewById<View>(R.id.mainFragmentLayout)?.let { view ->
+
+                snackbar = Snackbar.make(view, errorMessage, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.refresh) { fragmentViewModel.getCakeList(serviceApi) }
+                snackbar?.let { it.show() }
+            }
+        })
+    }
+
+    fun setupList() {
+        snackbar?.let { it.dismiss() }
+        fragmentViewModel.getCakeList(serviceApi)
     }
 
     override fun onItemClickListener(item: Cake) {
         val newFragment = CakeDialogFragment.newInstance(item)
         newFragment.show(fragmentManager!!, TAG_CAKE_DIALOG_FRAGMENT)
     }
-
 
     companion object {
         fun newInstance() = MainFragment()

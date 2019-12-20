@@ -20,6 +20,9 @@ class MainFragmentViewModel : ViewModel() {
     private val _emptyList = MutableLiveData<Int>()
     val emptyList: LiveData<Int> = _emptyList
 
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> = _errorMessage
+
     init {
         _cakeList.value = ArrayList()
         _loading.value = View.GONE
@@ -31,13 +34,16 @@ class MainFragmentViewModel : ViewModel() {
 
         viewModelScope.launch {
             _loading.value = View.VISIBLE
-
-            serviceApi.getCakeList().let {
-                _cakeList.value = Cake.parseSchemeToBusinessData(it)
-                _emptyList.value = if (it.size != 0) View.GONE else View.VISIBLE
+            try {
+                serviceApi.getCakeList().let {
+                    _cakeList.value = Cake.parseSchemeToBusinessData(it)
+                    _emptyList.value = if (it.size != 0) View.GONE else View.VISIBLE
+                }
+            } catch (e: Exception) {
+                _errorMessage.value = "Cakes not loaded"
+            } finally {
+                _loading.value = View.GONE
             }
-
-            _loading.value = View.GONE
         }
     }
 }
