@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="model"
             type="com.ahgitdevelopment.waracletest.ui.main.MainFragmentViewModel" />

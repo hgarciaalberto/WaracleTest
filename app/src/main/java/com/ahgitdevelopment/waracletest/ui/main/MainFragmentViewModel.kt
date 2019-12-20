@@ -20,6 +20,12 @@ class MainFragmentViewModel : ViewModel() {
     private val _emptyList = MutableLiveData<Int>()
     val emptyList: LiveData<Int> = _emptyList
 
+    init {
+        _cakeList.value = ArrayList()
+        _loading.value = View.GONE
+        _emptyList.value = View.VISIBLE
+    }
+
 
     fun getCakeList(serviceApi: CakeService) {
 

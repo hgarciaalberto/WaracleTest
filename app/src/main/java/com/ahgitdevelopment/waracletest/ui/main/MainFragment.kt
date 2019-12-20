@@ -45,14 +45,10 @@ class MainFragment : BaseFragment() {
         setupList()
     }
 
-    private fun setupList() {
+    fun setupList() {
         fragmentViewModel.getCakeList(serviceApi)
         fragmentViewModel.cakeList.observe(this, Observer {
-            if (recyclerViewAdapter == null) {
-                recyclerViewAdapter = CakeRecyclerViewAdaper(it)
-            } else {
-                recyclerViewAdapter?.notifyDataSetChanged()
-            }
+            recyclerViewAdapter = CakeRecyclerViewAdaper(it)
 
             recyclerView.apply {
                 setHasFixedSize(true)

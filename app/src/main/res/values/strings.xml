@@ -2,4 +2,5 @@
     <string name="app_name">WaracleTest</string>
     <string name="empty_cake_list">Empty cake list</string>
     <string name="cake_image">Cake image</string>
+    <string name="refresh">Refresh</string>
 </resources>
