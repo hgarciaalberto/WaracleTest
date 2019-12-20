@@ -1,7 +1,5 @@
 # Cake App
 
-[TOC]
-
 I have spent a little more time due to the fact that I wanted to implement several features that are considered very important nowadays. Commits have been bare and plain so I would like to explain what I've done here in detail:
 
 #### 1. Dependency Injection
