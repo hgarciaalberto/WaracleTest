@@ -3,4 +3,5 @@
     <string name="empty_cake_list">Empty cake list</string>
     <string name="cake_image">Cake image</string>
     <string name="refresh">Refresh</string>
+    <string name="error_message">Cakes not loaded</string>
 </resources>

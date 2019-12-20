@@ -50,7 +50,7 @@ class MainFragment : BaseFragment(), CakeViewHolder.OnItemClickListener {
 
         fetchCakeList()
 
-        fragmentViewModel.cakeList.observe(this, Observer {
+        fragmentViewModel.cakeList.observe(viewLifecycleOwner, Observer {
             recyclerViewAdapter = CakeRecyclerViewAdapter(it, this)
 
             recyclerView.apply {
@@ -60,24 +60,25 @@ class MainFragment : BaseFragment(), CakeViewHolder.OnItemClickListener {
             }
         })
 
-        fragmentViewModel.errorMessage.observe(this, Observer { errorMessage ->
+        fragmentViewModel.showError.observe(viewLifecycleOwner, Observer { showError ->
             activity?.findViewById<View>(R.id.mainFragmentLayout)?.let { view ->
-
-                snackbar = Snackbar.make(view, errorMessage, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.refresh) { fragmentViewModel.getCakeList(serviceApi) }
-                snackbar?.let { it.show() }
+                if (showError == true) {
+                    snackbar = Snackbar.make(view, R.string.error_message, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(R.string.refresh) { fragmentViewModel.getCakeList(serviceApi) }
+                    snackbar?.show()
+                }
             }
         })
     }
 
     fun fetchCakeList() {
-        snackbar?.let { it.dismiss() }
+        snackbar?.dismiss()
         fragmentViewModel.getCakeList(serviceApi)
     }
 
     override fun onItemClickListener(item: Cake) {
         val newFragment = CakeDialogFragment.newInstance(item)
-        newFragment.show(fragmentManager!!, TAG_CAKE_DIALOG_FRAGMENT)
+        newFragment.show(parentFragmentManager, TAG_CAKE_DIALOG_FRAGMENT)
     }
 
     companion object {

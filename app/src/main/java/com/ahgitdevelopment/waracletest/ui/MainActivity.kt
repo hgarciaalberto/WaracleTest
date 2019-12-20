@@ -11,7 +11,7 @@ import com.ahgitdevelopment.waracletest.ui.main.MainFragment
 
 class MainActivity : BaseActivity() {
 
-    var currentFragment: Fragment? = null
+    private var currentFragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 

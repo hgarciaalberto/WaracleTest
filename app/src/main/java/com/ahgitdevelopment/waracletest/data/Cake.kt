@@ -26,7 +26,7 @@ data class Cake(val title: String, val desc: String, val image: String) {
 }
 
 
-// TODO: That is not the best way to do that but I wanted to use extension function as part of the test
+// TODO: That is not the best way to do that but I wanted to use extension function as part of the exercise
 @Suppress("UNCHECKED_CAST")
 fun <T> ArrayList<T>.processList() {
 

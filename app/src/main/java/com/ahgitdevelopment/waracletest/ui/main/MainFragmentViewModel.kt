@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ahgitdevelopment.waracletest.common.SingleLiveEvent
 import com.ahgitdevelopment.waracletest.data.Cake
 import com.ahgitdevelopment.waracletest.data.processList
 import com.ahgitdevelopment.waracletest.network.CakeService
@@ -31,10 +32,10 @@ class MainFragmentViewModel : ViewModel() {
     val emptyList: LiveData<Int> = _emptyList
 
     /**
-     * Observable in charge of showing the Snackbar when loading error happened
+     * Observable in charge of showing the Snackbar when loading error happened.
+     * The snackbar only has to show once per fail so SingleLiveEvent class is needed
      */
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String> = _errorMessage
+    val showError = SingleLiveEvent<Boolean>()
 
     /**
      * Initialization of UI elements
@@ -65,7 +66,7 @@ class MainFragmentViewModel : ViewModel() {
                     _emptyList.value = if (it.size != 0) View.GONE else View.VISIBLE
                 }
             } catch (e: Exception) {
-                _errorMessage.value = "Cakes not loaded"
+                showError.value = true
             } finally {
                 _loading.value = View.GONE
             }
