@@ -11,14 +11,18 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ahgitdevelopment.waracletest.R
 import com.ahgitdevelopment.waracletest.base.BaseFragment
+import com.ahgitdevelopment.waracletest.common.TAG_CAKE_DIALOG_FRAGMENT
+import com.ahgitdevelopment.waracletest.data.Cake
 import com.ahgitdevelopment.waracletest.databinding.MainFragmentBinding
+import com.ahgitdevelopment.waracletest.ui.dialog.CakeDialogFragment
 import kotlinx.android.synthetic.main.main_fragment.*
 
-class MainFragment : BaseFragment() {
+
+class MainFragment : BaseFragment(), CakeViewHolder.OnItemClickListener {
 
     private lateinit var fragmentViewModel: MainFragmentViewModel
 
-    private var recyclerViewAdapter: CakeRecyclerViewAdaper? = null
+    private var recyclerViewAdapter: CakeRecyclerViewAdapter? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -41,14 +45,13 @@ class MainFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         setupList()
     }
 
     fun setupList() {
         fragmentViewModel.getCakeList(serviceApi)
         fragmentViewModel.cakeList.observe(this, Observer {
-            recyclerViewAdapter = CakeRecyclerViewAdaper(it)
+            recyclerViewAdapter = CakeRecyclerViewAdapter(it, this)
 
             recyclerView.apply {
                 setHasFixedSize(true)
@@ -57,6 +60,12 @@ class MainFragment : BaseFragment() {
             }
         })
     }
+
+    override fun onItemClickListener(item: Cake) {
+        val newFragment = CakeDialogFragment.newInstance(item)
+        newFragment.show(fragmentManager!!, TAG_CAKE_DIALOG_FRAGMENT)
+    }
+
 
     companion object {
         fun newInstance() = MainFragment()

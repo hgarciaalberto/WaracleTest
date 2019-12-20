@@ -7,3 +7,10 @@ const val CAKES_URL: String =
 
 
 const val TAG_MAIN_FRAGMENT: String = "main_fragment"
+const val TAG_CAKE_DIALOG_FRAGMENT: String = "cake_dialog_fragment"
+
+const val CAKE_DIALOG_FRAGMENT_TITLE: String = "dialog_title"
+const val CAKE_DIALOG_FRAGMENT_MESSAGE: String = "dialog_message"
+const val CAKE_DIALOG_FRAGMENT_IMAGE: String = "dialog_image"
+
+

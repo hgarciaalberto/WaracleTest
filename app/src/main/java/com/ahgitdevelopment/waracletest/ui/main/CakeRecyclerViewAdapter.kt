@@ -10,7 +10,11 @@ import com.ahgitdevelopment.waracletest.data.Cake
 import com.ahgitdevelopment.waracletest.databinding.ItemCakeBinding
 
 
-class CakeRecyclerViewAdaper(private val cakeList: List<Cake>) : RecyclerView.Adapter<CakeViewHolder>() {
+class CakeRecyclerViewAdapter(
+    private val cakeList: List<Cake>,
+    private val listener: CakeViewHolder.OnItemClickListener
+) :
+    RecyclerView.Adapter<CakeViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CakeViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -28,19 +32,26 @@ class CakeRecyclerViewAdaper(private val cakeList: List<Cake>) : RecyclerView.Ad
 
     override fun onBindViewHolder(holder: CakeViewHolder, position: Int) {
         val item: Cake = cakeList[position]
-        holder.bind(item)
+        holder.bind(item, listener)
     }
 }
 
 class CakeViewHolder(private val binding: ItemCakeBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: Cake) {
+    fun bind(item: Cake, listener: OnItemClickListener) {
         // Used when there is only one Binding (easiest way)
 //        binding.modelCake = item
 
         //It can be assigned whatever view model object type I need (harder way)
         binding.setVariable(BR.modelCake, item)
+        binding.root.setOnClickListener {
+            listener.onItemClickListener(item)
+        }
 
         binding.executePendingBindings()
+    }
+
+    interface OnItemClickListener {
+        fun onItemClickListener(item: Cake)
     }
 }
