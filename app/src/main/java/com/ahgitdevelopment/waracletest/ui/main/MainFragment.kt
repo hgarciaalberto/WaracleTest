@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ahgitdevelopment.waracletest.R
 import com.ahgitdevelopment.waracletest.base.BaseFragment
@@ -19,7 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class MainFragment : BaseFragment(), CakeViewHolder.OnItemClickListener {
 
-    private lateinit var fragmentViewModel: MainFragmentViewModel
+    private val fragmentViewModel: MainFragmentViewModel by viewModels()
 
     private var recyclerViewAdapter: CakeRecyclerViewAdapter? = null
 
@@ -37,7 +37,6 @@ class MainFragment : BaseFragment(), CakeViewHolder.OnItemClickListener {
             inflater, R.layout.main_fragment, container, false
         )
 
-        fragmentViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainFragmentViewModel::class.java)
         fragmentBinding.apply {
             lifecycleOwner = activity
             model = fragmentViewModel
@@ -46,8 +45,8 @@ class MainFragment : BaseFragment(), CakeViewHolder.OnItemClickListener {
         return fragmentBinding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         fetchCakeList()
 

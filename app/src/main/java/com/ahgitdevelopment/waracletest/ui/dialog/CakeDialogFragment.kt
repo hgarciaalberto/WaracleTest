@@ -15,8 +15,8 @@ import kotlin.random.Random
 class CakeDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val title = arguments!!.getString(CAKE_DIALOG_FRAGMENT_TITLE)
-        val desc = arguments!!.getString(CAKE_DIALOG_FRAGMENT_MESSAGE)
+        val title = requireArguments().getString(CAKE_DIALOG_FRAGMENT_TITLE)
+        val desc = requireArguments().getString(CAKE_DIALOG_FRAGMENT_MESSAGE)
 
         val dialog = AlertDialog.Builder(activity as Context)
             .setTitle(title)

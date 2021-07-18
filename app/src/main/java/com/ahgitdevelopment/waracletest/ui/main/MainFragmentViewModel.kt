@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.ahgitdevelopment.waracletest.common.SingleLiveEvent
 import com.ahgitdevelopment.waracletest.data.Cake
 import com.ahgitdevelopment.waracletest.data.processList
+import com.ahgitdevelopment.waracletest.data.toBusinessData
 import com.ahgitdevelopment.waracletest.network.CakeService
 import kotlinx.coroutines.launch
 
@@ -56,14 +57,14 @@ class MainFragmentViewModel : ViewModel() {
         viewModelScope.launch {
             _loading.value = View.VISIBLE
             try {
-                serviceApi.getCakeList().let {
+                serviceApi.getCakeList().let { cakeSchemeList ->
 
                     // Process list to remove duplicates and sort list
-                    it.processList()
+                    cakeSchemeList.processList()
 
                     // Update UI elements
-                    _cakeList.value = Cake.parseSchemeToBusinessData(it)
-                    _emptyList.value = if (it.size != 0) View.GONE else View.VISIBLE
+                    _cakeList.value = cakeSchemeList.map { it.toBusinessData() }
+                    _emptyList.value = if (cakeSchemeList.size != 0) View.GONE else View.VISIBLE
                 }
             } catch (e: Exception) {
                 showError.value = true
