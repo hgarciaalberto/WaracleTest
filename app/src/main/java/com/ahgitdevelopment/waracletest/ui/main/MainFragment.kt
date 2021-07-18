@@ -16,7 +16,6 @@ import com.ahgitdevelopment.waracletest.data.Cake
 import com.ahgitdevelopment.waracletest.databinding.MainFragmentBinding
 import com.ahgitdevelopment.waracletest.ui.dialog.CakeDialogFragment
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : BaseFragment(), CakeViewHolder.OnItemClickListener {
 
@@ -26,13 +25,15 @@ class MainFragment : BaseFragment(), CakeViewHolder.OnItemClickListener {
 
     private var snackbar: Snackbar? = null
 
+    private lateinit var fragmentBinding: MainFragmentBinding
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         getApplicationComponent().inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val fragmentBinding: MainFragmentBinding = DataBindingUtil.inflate(
+        fragmentBinding = DataBindingUtil.inflate(
             inflater, R.layout.main_fragment, container, false
         )
 
@@ -53,7 +54,7 @@ class MainFragment : BaseFragment(), CakeViewHolder.OnItemClickListener {
         fragmentViewModel.cakeList.observe(viewLifecycleOwner, Observer {
             recyclerViewAdapter = CakeRecyclerViewAdapter(it, this)
 
-            recyclerView.apply {
+            fragmentBinding.recyclerView.apply {
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(activity)
                 adapter = recyclerViewAdapter
